@@ -10,7 +10,7 @@ struct MyTray {
 impl ksni::Tray for MyTray {
 
     fn icon_theme_path(&self) -> String {
-        "/home/heather/Projects/sys-tray".into()
+        "/home/heather/Projects/sys-tray/assets".into()
     }
     fn icon_name(&self) -> String {
         "Thunderbird".into()
@@ -96,54 +96,26 @@ impl ksni::Tray for MyTray {
 }
 
 fn main() {
-    //find_my_de();
     let service = ksni::TrayService::new(MyTray {
         selected_option: 0,
         checked: false,
     });
     let handle = service.handle();
 
+    // I don't know where to send the assets_dir, so that it can be picked up by icon_theme_path
+    // I want the above fn icon_theme_path to have something like:
+    //      assets_dir.into()
 
-    utils::get_assests_dir();
-    utils::find_my_de();
+    //let (outcome, assets_dir) = utils::get_assests_dir();
+    //println!("Assets directory: {:?}", assets_dir);
     
-/* this is in my utils.rs
-    let mut my_de = env::var("XDG_CURRENT_DESKTOP").unwrap();
-    if my_de == "ubuntu:GNOME" {
-        my_de = "GNOME".to_string();
-    }
-    match my_de.as_str() {
-        "KDE" => println!("my_de is {my_de}"),
-        "GNOME" => println!("my_de is {my_de}"),
-        _ => println!("Unknown DE"),
-    }
-*/
-/*
-    let desktop = env::var("XDG_CURRENT_DESKTOP").unwrap();
-    let my_de = Some();
-    assert_eq!(my_de.ok_or_else(|| 0), Ok(desktop));
+    utils::find_my_de();
 
-    let my_de: Option<&str> = None;
-    assert_eq!(my_de.ok_or_else(|| 0), Err(0));
-*/
+    // Based on the DE discovered, we could force the Thunderbird-Dark-symbolic.svg.
+    // I don't know how to send whichever svg to icon_name to have something like:
+    //      logo.into()
+    // where logo would point to the svg file, which depends on the DE
 
-/*
-    let x = Some("KDE");
-    assert_eq!(x.ok_or_else(|| 0), Ok("KDE"));
-
-    //let x: Option<&str> = None;
-    //assert_eq!(x.ok_or(0), Err(0));
-*/
-/*
-    if let Some(KDE) = env::var("XDG_CURRENT_DESKTOP") {
-        println!("my_de is {KDE}");
-    }
-*/
-    /*
-    if let ok_or_else(Some(desktop))? = env::var("XDG_CURRENT_DESKTOP") {
-        println!("my de is {desktop}")
-    }
-    */
     service.spawn();
 
     std::thread::sleep(std::time::Duration::from_secs(5));
