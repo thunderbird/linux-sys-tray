@@ -10,7 +10,7 @@ struct MyTray {
 impl ksni::Tray for MyTray {
 
     fn icon_theme_path(&self) -> String {
-        "/home/heather/Projects/sys-tray/assets".into()
+        "/home/heather/Projects/sys-tray/tb-linux-sys-tray/assets".into()
     }
     fn icon_name(&self) -> String {
         "Thunderbird".into()
@@ -25,65 +25,6 @@ impl ksni::Tray for MyTray {
     fn menu(&self) -> Vec<ksni::MenuItem<Self>> {
         use ksni::menu::*;
         vec![
-            SubMenu {
-                label: "a".into(),
-                submenu: vec![
-                    SubMenu {
-                        label: "a1".into(),
-                        submenu: vec![
-                            StandardItem {
-                                label: "a1.1".into(),
-                                ..Default::default()
-                            }
-                            .into(),
-                            StandardItem {
-                                label: "a1.2".into(),
-                                ..Default::default()
-                            }
-                            .into(),
-                        ],
-                        ..Default::default()
-                    }
-                    .into(),
-                    StandardItem {
-                        label: "a2".into(),
-                        ..Default::default()
-                    }
-                    .into(),
-                ],
-                ..Default::default()
-            }
-            .into(),
-            MenuItem::Separator,
-            RadioGroup {
-                selected: self.selected_option,
-                select: Box::new(|this: &mut Self, current| {
-                    this.selected_option = current;
-                }),
-                options: vec![
-                    RadioItem {
-                        label: "Option 0".into(),
-                        ..Default::default()
-                    },
-                    RadioItem {
-                        label: "Option 1".into(),
-                        ..Default::default()
-                    },
-                    RadioItem {
-                        label: "Option 2".into(),
-                        ..Default::default()
-                    },
-                ],
-                ..Default::default()
-            }
-            .into(),
-            CheckmarkItem {
-                label: "Checkable".into(),
-                checked: self.checked,
-                activate: Box::new(|this: &mut Self| this.checked = !this.checked),
-                ..Default::default()
-            }
-            .into(),
             StandardItem {
                 label: "Exit".into(),
                 icon_name: "application-exit".into(),
