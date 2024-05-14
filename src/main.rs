@@ -13,7 +13,7 @@ impl ksni::Tray for MyTray {
         "/home/heather/Projects/sys-tray/tb-linux-sys-tray/assets".into()
     }
     fn icon_name(&self) -> String {
-        "Thunderbird".into()
+        "Thunderbird-Dark-symbolic".into()
     }
     fn title(&self) -> String {
         if self.checked { "CHECKED!" } else { "MyTray" }.into()
@@ -47,8 +47,18 @@ fn main() {
     // I want the above fn icon_theme_path to have something like:
     //      assets_dir.into()
 
-    //let (outcome, assets_dir) = utils::get_assests_dir();
-    //println!("Assets directory: {:?}", assets_dir);
+    /*
+    let my_result = utils::get_assests_dir();
+    if let Ok(value) = my_result{
+        println!("the value is: {:?}", value);
+    }
+    */
+
+    let one = utils::return_one();
+    utils::do_stuff(&one); // Calls do_something on One
+
+    
+    //println!("Assets directory result is: {:?}", assets_dir_result);
     
     utils::find_my_de();
 
