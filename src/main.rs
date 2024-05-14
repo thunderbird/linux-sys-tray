@@ -45,20 +45,16 @@ fn main() {
 
     // I don't know where to send the assets_dir, so that it can be picked up by icon_theme_path
     // I want the above fn icon_theme_path to have something like:
+    //      assets_dir = utils::get_icons_dir(&struct_for_dir)
     //      assets_dir.into()
+    // The problem is that I can't seem to pass the value from utils::get_icons_dir because it gets
+    // set in a condition of the match and so is out of scope when I try to return assets_dir at the 
+    // end of the function :(
 
-    /*
-    let my_result = utils::get_assests_dir();
-    if let Ok(value) = my_result{
-        println!("the value is: {:?}", value);
-    }
-    */
-
-    let one = utils::return_one();
-    utils::do_stuff(&one); // Calls do_something on One
-
-    
-    //println!("Assets directory result is: {:?}", assets_dir_result);
+    let struct_for_dir = utils::RandomStruct {
+        directory: String::new(),
+    };
+    utils::get_icons_dir(&struct_for_dir); // Calls do_something on One
     
     utils::find_my_de();
 
