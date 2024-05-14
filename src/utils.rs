@@ -15,6 +15,7 @@ pub fn find_my_de() {
     }
 }
 
+/*
 pub fn get_assests_dir() -> (std::io::Result<()>, PathBuf) {
     /*
     let current_exe_path = env::current_exe().expect("Failed to get current executable path");
@@ -35,3 +36,4 @@ pub fn get_assests_dir() -> (std::io::Result<()>, PathBuf) {
    (Ok(()), assets_dir)
    //assets_dir
 }
+*/
