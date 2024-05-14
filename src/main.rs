@@ -1,5 +1,6 @@
 use ksni;
 use std::env;
+use std::io;
 
 #[derive(Debug)]
 struct MyTray {
@@ -106,7 +107,7 @@ impl ksni::Tray for MyTray {
     }
 }
 
-fn main() {
+fn main() -> io::Result<()> {
     //find_my_de();
     let service = ksni::TrayService::new(MyTray {
         selected_option: 0,
@@ -114,6 +115,11 @@ fn main() {
     });
     let handle = service.handle();
 
+    let current_dir = env::current_dir()?;
+    let parent_dir = current_dir.parent().ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, "Parent directory not found"))?;
+    println!("The current directory is {}", current_dir.display());
+    println!("The parent directory is {}", parent_dir.display());
+    
 
     let mut my_de = env::var("XDG_CURRENT_DESKTOP").unwrap();
     if my_de == "ubuntu:GNOME" {
