@@ -1,6 +1,4 @@
 use std::env;
-use std::path::Path;
-use std::path::PathBuf;
 use std::io;
 
 pub fn find_my_de() {
@@ -17,54 +15,43 @@ pub fn find_my_de() {
 
 
 pub trait SomeTrait {
-    fn do_something(&self);
+    fn get_current_dir(&self) -> io::Result<String>;
+    fn get_assets_dir(&self);
 }
 
-struct One;
-impl SomeTrait for One {
-    fn do_something(&self) {
-        println!("Doing something with One");
+pub struct RandomStruct{
+    pub directory: String,
+}
+
+impl SomeTrait for RandomStruct {
+    fn get_current_dir(&self) -> io::Result<String> {
+        let current_dir = env::current_dir()?;
+        //println!("The current directory is {}", current_dir.display());
+        Ok(current_dir.display().to_string())
+    }
+    fn get_assets_dir(&self) {
+        let current_dir = self.get_current_dir();
+        match current_dir {
+            Ok(directory) => {
+                // Use the current_dir string here
+                //println!("current directory is {}", directory);
+                let assets_dir = directory + "/assets";
+                println!("The assets directory is {}", assets_dir);
+            },
+            Err(error) => {
+                // Handle the error
+                eprintln!("An error occurred: {}", error);
+            }
+        } 
     }
 }
 
-pub fn return_one() -> One {
-    One
-}
-
-pub fn do_stuff(op: &dyn SomeTrait) {
-    op.do_something();
-}
-
 /*
-pub fn get_assests_dir() -> io::Result<()> {
-    /*
-    let current_exe_path = env::current_exe().expect("Failed to get current executable path");
-    let parent_dir = Path::new(&current_exe_path).parent().expect("Failed to get parent directory");
-    println!("Parent directory: {:?}", parent_dir);
-    */
-
-    let current_dir = env::current_dir()?;
-    //let parent_dir = current_dir.parent().expect("Failed to get parent directory");
-    let assets_dir = current_dir.join("assets");
-    
-    println!("The current directory is {}", current_dir.display());
-    //println!("Parent directory: {:?}", parent_dir);
-    println!("{:?}", assets_dir);
-
-    //let parent_dir = current_dir.parent().ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, "Parent directory not found"))?;
-    //println!("The parent directory is {}", parent_dir.display());
-   
-   Ok(())
-   //assets_dir
+pub fn return_struct_for_dir(thing: RandomStruct) -> String{
+    thing.directory
 }
 */
 
-/*
-pub fn use_assets_dir() {
-    let get_assets_dir_result = get_assets_dir();
-    if get_assets_dir() {
-        let active_dir = Some(&parent_dir.to_string());
-        println!("active_dir is {:?}", active_dir);
-    }
+pub fn get_icons_dir(op: &dyn SomeTrait) {
+    op.get_assets_dir();
 }
-*/
