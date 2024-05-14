@@ -13,7 +13,7 @@ impl ksni::Tray for MyTray {
         "/home/heather/Projects/sys-tray/tb-linux-sys-tray/assets".into()
     }
     fn icon_name(&self) -> String {
-        "Thunderbird-Dark-symbolic".into()
+        "tb-symbolic-white".into()
     }
     fn title(&self) -> String {
         if self.checked { "CHECKED!" } else { "MyTray" }.into()
