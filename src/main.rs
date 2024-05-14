@@ -1,6 +1,5 @@
 use ksni;
-use std::env;
-use std::io;
+mod utils;
 
 #[derive(Debug)]
 struct MyTray {
@@ -9,18 +8,7 @@ struct MyTray {
 }
 
 impl ksni::Tray for MyTray {
-    /*fn find_my_de() {
-        enum LinuxDesktopEnv {
-            KDE,
-            GNOME,
-        }
-        let my_de = env::var("XDG_CURRENT_DESKTOP").unwrap();
-        //println!("{MyDe}");
-        //if let Some(desktop) = env::var("XDG_CURRENT_DESKTOP").and_then(|e| Some(e.split(';'));
-        if my_de == LinuxDesktopEnv::KDE {
-            println!("my DE is KDE!");
-        }
-    }*/
+
     fn icon_theme_path(&self) -> String {
         "/home/heather/Projects/sys-tray".into()
     }
@@ -107,7 +95,7 @@ impl ksni::Tray for MyTray {
     }
 }
 
-fn main() -> io::Result<()> {
+fn main() {
     //find_my_de();
     let service = ksni::TrayService::new(MyTray {
         selected_option: 0,
@@ -115,12 +103,11 @@ fn main() -> io::Result<()> {
     });
     let handle = service.handle();
 
-    let current_dir = env::current_dir()?;
-    let parent_dir = current_dir.parent().ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, "Parent directory not found"))?;
-    println!("The current directory is {}", current_dir.display());
-    println!("The parent directory is {}", parent_dir.display());
-    
 
+    utils::get_assests_dir();
+    utils::find_my_de();
+    
+/* this is in my utils.rs
     let mut my_de = env::var("XDG_CURRENT_DESKTOP").unwrap();
     if my_de == "ubuntu:GNOME" {
         my_de = "GNOME".to_string();
@@ -130,7 +117,7 @@ fn main() -> io::Result<()> {
         "GNOME" => println!("my_de is {my_de}"),
         _ => println!("Unknown DE"),
     }
-
+*/
 /*
     let desktop = env::var("XDG_CURRENT_DESKTOP").unwrap();
     let my_de = Some();
