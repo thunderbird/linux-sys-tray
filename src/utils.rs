@@ -16,7 +16,7 @@ pub fn find_my_de() {
 
 pub trait SomeTrait {
     fn get_current_dir(&self) -> io::Result<String>;
-    fn get_assets_dir(&self);
+    fn get_assets_dir(&self) -> String;
 }
 
 pub struct RandomStruct{
@@ -29,8 +29,11 @@ impl SomeTrait for RandomStruct {
         //println!("The current directory is {}", current_dir.display());
         Ok(current_dir.display().to_string())
     }
-    fn get_assets_dir(&self) {
+    fn get_assets_dir(&self) -> String {
         let current_dir = self.get_current_dir();
+        let assets_dir = current_dir.expect("ermagerd");
+        println!("From utils, the assets directory is {}", assets_dir);
+        /*
         match current_dir {
             Ok(directory) => {
                 // Use the current_dir string here
@@ -43,6 +46,8 @@ impl SomeTrait for RandomStruct {
                 eprintln!("An error occurred: {}", error);
             }
         } 
+        */
+        assets_dir
     }
 }
 

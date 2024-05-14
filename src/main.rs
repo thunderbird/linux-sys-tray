@@ -54,7 +54,8 @@ fn main() {
     let struct_for_dir = utils::RandomStruct {
         directory: String::new(),
     };
-    utils::get_icons_dir(&struct_for_dir); // Calls do_something on One
+    let assets_dir = utils::get_icons_dir(&struct_for_dir); // Calls do_something on One
+    println!("From main, the assets directory is {:?}", assets_dir);
     
     utils::find_my_de();
 
