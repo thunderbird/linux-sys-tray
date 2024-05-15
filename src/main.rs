@@ -1,6 +1,6 @@
-use ksni;
-use std::path::PathBuf;
+
 use std::env;
+
 
 //use crate::utils::SomeTrait;
 //mod utils;
@@ -12,14 +12,13 @@ struct MyTray {
 }
 
 impl ksni::Tray for MyTray {
-
     fn icon_theme_path(&self) -> String {
         let mut assets_dir = env::current_dir().expect("error");
         assets_dir.push("assets");
-        assets_dir.display().to_string().into()
+        assets_dir.display().to_string()
     }
     fn icon_name(&self) -> String {
-        let mut my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
+        let my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
         let mut preferred_icon = "Thunderbird.svg";
         if my_de == "ubuntu:GNOME" {
             preferred_icon = "tb-symbolic-white.svg";
@@ -38,20 +37,17 @@ impl ksni::Tray for MyTray {
     }
     fn menu(&self) -> Vec<ksni::MenuItem<Self>> {
         use ksni::menu::*;
-        vec![
-            StandardItem {
-                label: "Exit".into(),
-                icon_name: "application-exit".into(),
-                activate: Box::new(|_| std::process::exit(0)),
-                ..Default::default()
-            }
-            .into(),
-        ]
+        vec![StandardItem {
+            label: "Exit".into(),
+            icon_name: "application-exit".into(),
+            activate: Box::new(|_| std::process::exit(0)),
+            ..Default::default()
+        }
+        .into()]
     }
 }
 
 fn main() {
-
     let service = ksni::TrayService::new(MyTray {
         selected_option: 0,
         checked: false,
@@ -63,7 +59,7 @@ fn main() {
     //      assets_dir = utils::get_icons_dir(&struct_for_dir)
     //      assets_dir.into()
     // The problem is that I can't seem to pass the value from utils::get_icons_dir because it gets
-    // set in a condition of the match and so is out of scope when I try to return assets_dir at the 
+    // set in a condition of the match and so is out of scope when I try to return assets_dir at the
     // end of the function :(
 
     //let struct_for_dir = utils::RandomStruct {
@@ -72,7 +68,7 @@ fn main() {
     //let assets_dir = utils::get_icons_dir(&struct_for_dir); // Calls get_icons_dir on the struct defined in utils.rs
     //let assets_dir = utils::RandomStruct::get_assets_dir();
     //println!("From main, the assets directory is {:?}", assets_dir);
-    
+
     //utils::find_my_de();
 
     // Based on the DE discovered, we could force the Thunderbird-Dark-symbolic.svg.
