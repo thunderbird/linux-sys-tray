@@ -1,23 +1,33 @@
 use ksni;
 use std::path::PathBuf;
+use std::env;
 
-use crate::utils::SomeTrait;
-mod utils;
+//use crate::utils::SomeTrait;
+//mod utils;
 
 #[derive(Debug)]
 struct MyTray {
     selected_option: usize,
     checked: bool,
-    assets_dir: PathBuf,
 }
 
 impl ksni::Tray for MyTray {
 
     fn icon_theme_path(&self) -> String {
-        "/home/heather/Projects/sys-tray/tb-linux-sys-tray/assets".into()
+        let mut assets_dir = env::current_dir().expect("error");
+        assets_dir.push("assets");
+        assets_dir.display().to_string().into()
     }
     fn icon_name(&self) -> String {
-        "tb-symbolic-white".into()
+        let mut my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
+        let mut preferred_icon = "Thunderbird.svg";
+        if my_de == "ubuntu:GNOME" {
+            preferred_icon = "tb-symbolic-white.svg";
+        } else if my_de == "KDE" {
+            preferred_icon = "Thunderbird_Logo_Outline-Light.svg"
+        }
+        println!("icon for {} is {}", my_de, preferred_icon);
+        preferred_icon.into()
     }
     fn title(&self) -> String {
         if self.checked { "CHECKED!" } else { "MyTray" }.into()
@@ -41,10 +51,10 @@ impl ksni::Tray for MyTray {
 }
 
 fn main() {
+
     let service = ksni::TrayService::new(MyTray {
         selected_option: 0,
         checked: false,
-        assets_dir: utils::RandomStruct::get_assets_dir(&utils::RandomStruct { directory: PathBuf}),
     });
     let handle = service.handle();
 
@@ -63,7 +73,7 @@ fn main() {
     //let assets_dir = utils::RandomStruct::get_assets_dir();
     //println!("From main, the assets directory is {:?}", assets_dir);
     
-    utils::find_my_de();
+    //utils::find_my_de();
 
     // Based on the DE discovered, we could force the Thunderbird-Dark-symbolic.svg.
     // I don't know how to send whichever svg to icon_name to have something like:

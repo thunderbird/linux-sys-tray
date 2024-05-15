@@ -2,18 +2,25 @@ use std::env;
 use std::io;
 use std::path::{Path, PathBuf};
 
-pub fn find_my_de() {
-    let mut my_de = env::var("XDG_CURRENT_DESKTOP").unwrap();
+pub fn find_my_de() -> String {
+    let mut my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
     if my_de == "ubuntu:GNOME" {
         my_de = "GNOME".to_string();
     }
+    my_de
+ /*
     match my_de.as_str() {
         "KDE" => println!("my_de is {my_de}"),
         "GNOME" => println!("my_de is {my_de}"),
         _ => println!("Unknown DE"),
     }
+*/
 }
 
+pub fn choose_icon() {
+
+}
+/*
 
 pub trait SomeTrait {
     fn get_current_dir(&self) -> io::Result<PathBuf>;
@@ -37,7 +44,7 @@ impl SomeTrait for RandomStruct {
         //let assets_dir = self.get_current_dir().expect("ohno");
         
         let cur_dir = env::current_dir().expect("error");
-        let mut assets_dir = PathBuf::from(cur_dir);
+        let mut assets_dir = env::current_dir().expect("error");
         assets_dir.push("assets");
         println!("From utils, the assets directory is {}", assets_dir.display());
         /*
@@ -54,7 +61,7 @@ impl SomeTrait for RandomStruct {
             }
         } 
         */
-        PathBuf::from(assets_dir)
+        assets_dir
     }
 }
 
@@ -67,3 +74,4 @@ pub fn return_struct_for_dir(thing: RandomStruct) -> String{
 pub fn get_icons_dir(op: &dyn SomeTrait) -> PathBuf {
     op.get_assets_dir()
 }
+*/
