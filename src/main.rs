@@ -1,4 +1,6 @@
 use ksni;
+
+use crate::utils::SomeTrait;
 mod utils;
 
 #[derive(Debug)]
@@ -52,9 +54,10 @@ fn main() {
     // end of the function :(
 
     let struct_for_dir = utils::RandomStruct {
-        directory: String::new(),
+        directory: PathBuf,
     };
-    let assets_dir = utils::get_icons_dir(&struct_for_dir); // Calls do_something on One
+    //let assets_dir = utils::get_icons_dir(&struct_for_dir); // Calls get_icons_dir on the struct defined in utils.rs
+    let assets_dir = struct_for_dir.get_assets_dir();
     println!("From main, the assets directory is {:?}", assets_dir);
     
     utils::find_my_de();
