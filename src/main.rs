@@ -1,4 +1,5 @@
 use ksni;
+use std::path::PathBuf;
 
 use crate::utils::SomeTrait;
 mod utils;
@@ -7,6 +8,7 @@ mod utils;
 struct MyTray {
     selected_option: usize,
     checked: bool,
+    assets_dir: PathBuf,
 }
 
 impl ksni::Tray for MyTray {
@@ -42,6 +44,7 @@ fn main() {
     let service = ksni::TrayService::new(MyTray {
         selected_option: 0,
         checked: false,
+        assets_dir: utils::RandomStruct::get_assets_dir(&utils::RandomStruct { directory: PathBuf}),
     });
     let handle = service.handle();
 
@@ -53,12 +56,12 @@ fn main() {
     // set in a condition of the match and so is out of scope when I try to return assets_dir at the 
     // end of the function :(
 
-    let struct_for_dir = utils::RandomStruct {
-        directory: PathBuf,
-    };
+    //let struct_for_dir = utils::RandomStruct {
+    //    directory: PathBuf,
+    //};
     //let assets_dir = utils::get_icons_dir(&struct_for_dir); // Calls get_icons_dir on the struct defined in utils.rs
-    let assets_dir = struct_for_dir.get_assets_dir();
-    println!("From main, the assets directory is {:?}", assets_dir);
+    //let assets_dir = utils::RandomStruct::get_assets_dir();
+    //println!("From main, the assets directory is {:?}", assets_dir);
     
     utils::find_my_de();
 

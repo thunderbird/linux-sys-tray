@@ -1,6 +1,6 @@
 use std::env;
 use std::io;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 pub fn find_my_de() {
     let mut my_de = env::var("XDG_CURRENT_DESKTOP").unwrap();
@@ -33,7 +33,12 @@ impl SomeTrait for RandomStruct {
     fn get_assets_dir(&self) -> PathBuf {
         //let current_dir = self.get_current_dir();
         //let assets_dir = current_dir.expect("ermagerd");
-        let assets_dir = self.get_current_dir().expect("ohno");
+        
+        //let assets_dir = self.get_current_dir().expect("ohno");
+        
+        let cur_dir = env::current_dir().expect("error");
+        let mut assets_dir = PathBuf::from(cur_dir);
+        assets_dir.push("assets");
         println!("From utils, the assets directory is {}", assets_dir.display());
         /*
         match current_dir {
@@ -49,7 +54,7 @@ impl SomeTrait for RandomStruct {
             }
         } 
         */
-        assets_dir
+        PathBuf::from(assets_dir)
     }
 }
 
