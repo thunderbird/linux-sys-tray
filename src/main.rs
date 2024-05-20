@@ -8,32 +8,6 @@ struct MyTray {
 }
 
 impl ksni::Tray for MyTray {
-    fn icon_theme_path(&self) -> String {
-        let mut assets_dir = env::current_dir().expect("error");
-        assets_dir.push("assets");
-        assets_dir.display().to_string()
-    }
-    fn icon_name(&self) -> String {
-        let my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
-        let mut preferred_icon = "Thunderbird.svg";
-        if my_de
-            .replace(":", ";")
-            .split(";")
-            .map(|m| m.to_ascii_lowercase())
-            .any(|e| &e == "gnome")
-        {
-            preferred_icon = "tb-symbolic-white.svg";
-        } else if my_de
-            .replace(":", ";")
-            .split(";")
-            .map(|m| m.to_ascii_lowercase())
-            .any(|e| &e == "kde")
-        {
-            preferred_icon = "Thunderbird_Logo_Outline-Light.svg";
-        }
-        preferred_icon.into()
-        
-    }
     fn title(&self) -> String {
         if self.checked { "Thunderbird" } else { "MyTray" }.into()
     }
