@@ -15,6 +15,31 @@ impl ksni::Tray for MyTray {
     fn id(&self) -> String {
         env!("CARGO_PKG_NAME").into()
     }
+    fn icon_theme_path(&self) -> String {
+        let mut assets_dir = env::current_dir().expect("error");
+        assets_dir.push("assets");
+        assets_dir.display().to_string().into()
+    }
+    fn icon_name(&self) -> String {
+        let my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
+        let mut preferred_icon = "Thunderbird.svg";
+        if my_de
+            .replace(":", ";")
+            .split(";")
+            .map(|m| m.to_ascii_lowercase())
+            .any(|e| &e == "gnome")
+        {
+            preferred_icon = "tb-symbolic-white.svg";
+        } else if my_de
+            .replace(":", ";")
+            .split(";")
+            .map(|m| m.to_ascii_lowercase())
+            .any(|e| &e == "kde")
+        {
+            preferred_icon = "Thunderbird_Logo_Outline-Light.svg";
+        }
+        preferred_icon.into()
+    }
     fn menu(&self) -> Vec<ksni::MenuItem<Self>> {
         use ksni::menu::*;
         vec![StandardItem {
