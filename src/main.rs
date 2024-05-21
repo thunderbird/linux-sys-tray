@@ -3,7 +3,7 @@ use std::env;
 
 #[derive(Debug)]
 struct MyTray {
-    selected_option: usize,
+    //selected_option: usize,
     checked: bool,
 }
 
@@ -29,7 +29,7 @@ impl ksni::Tray for MyTray {
 
 fn main() {
     let service = ksni::TrayService::new(MyTray {
-        selected_option: 0,
+        //selected_option: 0,
         checked: false,
     });
     let handle = service.handle();
