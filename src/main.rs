@@ -21,7 +21,7 @@ impl ksni::Tray for MyTray {
         assets_dir.display().to_string().into()
     }
     fn icon_name(&self) -> String {
-        let my_de = env::var("XDG_CURRENT_DESKTOP").expect("error");
+        let my_de = env::var("XDG_CURRENT_DESKTOP").expect("Error - no detected Linux desktop");
         let mut preferred_icon = "Thunderbird.svg";
         if my_de
             .replace(":", ";")
