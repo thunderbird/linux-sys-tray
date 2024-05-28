@@ -75,22 +75,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "hermit-abi"
-version = "0.1.19"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62b467343b94ba476dcb2500d242dadbb39557df889310ac77c5d99100aaac33"
-dependencies = [
- "libc",
-]
-
-[[package]]
-name = "ksni"
+name = "dbus_hooks"
 version = "0.2.2"
 dependencies = [
  "dbus",
  "dbus-codegen",
  "dbus-tree",
  "thiserror",
+]
+
+[[package]]
+name = "hermit-abi"
+version = "0.1.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "62b467343b94ba476dcb2500d242dadbb39557df889310ac77c5d99100aaac33"
+dependencies = [
+ "libc",
 ]
 
 [[package]]
@@ -106,6 +106,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "06085512b750d640299b79be4bad3d2fa90a9c00b1fd9e1b46364f66f0485c72"
 dependencies = [
  "pkg-config",
+]
+
+[[package]]
+name = "linux-sys-tray"
+version = "0.1.0"
+dependencies = [
+ "dbus_hooks",
 ]
 
 [[package]]
@@ -147,13 +154,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
-]
-
-[[package]]
-name = "test-example"
-version = "0.1.0"
-dependencies = [
- "ksni",
 ]
 
 [[package]]
