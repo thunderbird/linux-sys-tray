@@ -7,7 +7,7 @@ struct MyTray {
     checked: bool,
 }
 
-impl dbus_hooks::Tray for MyTray {
+impl ksni::Tray for MyTray {
     fn title(&self) -> String {
         if self.checked { "Thunderbird" } else { "MyTray" }.into()
     }
@@ -15,8 +15,8 @@ impl dbus_hooks::Tray for MyTray {
     fn id(&self) -> String {
         env!("CARGO_PKG_NAME").into()
     }
-    fn menu(&self) -> Vec<dbus_hooks::MenuItem<Self>> {
-        use dbus_hooks::menu::*;
+    fn menu(&self) -> Vec<ksni::MenuItem<Self>> {
+        use ksni::menu::*;
         vec![StandardItem {
             label: "Exit".into(),
             icon_name: "application-exit".into(),
@@ -28,7 +28,7 @@ impl dbus_hooks::Tray for MyTray {
 }
 
 fn main() {
-    let service = dbus_hooks::TrayService::new(MyTray {
+    let service = ksni::TrayService::new(MyTray {
         //selected_option: 0,
         checked: false,
     });

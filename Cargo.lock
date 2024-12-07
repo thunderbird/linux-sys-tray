@@ -56,9 +56,9 @@ dependencies = [
 
 [[package]]
 name = "dbus-codegen"
-version = "0.11.0"
+version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bcd91775d91fc83c7d526aa7c08078bac0b30f382706689901ac819fe6ddc812"
+checksum = "a49da9fdfbe872d4841d56605dc42efa5e6ca3291299b87f44e1cde91a28617c"
 dependencies = [
  "clap",
  "dbus",
@@ -75,22 +75,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbus_hooks"
-version = "0.2.2"
-dependencies = [
- "dbus",
- "dbus-codegen",
- "dbus-tree",
- "thiserror",
-]
-
-[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "62b467343b94ba476dcb2500d242dadbb39557df889310ac77c5d99100aaac33"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "ksni"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4934310bdd016e55725482b8d35ac0c16fd058c1b955d8959aa2d953b918c85b"
+dependencies = [
+ "dbus",
+ "dbus-codegen",
+ "dbus-tree",
+ "thiserror",
 ]
 
 [[package]]
@@ -112,7 +114,7 @@ dependencies = [
 name = "linux-sys-tray"
 version = "0.1.0"
 dependencies = [
- "dbus_hooks",
+ "ksni",
 ]
 
 [[package]]
